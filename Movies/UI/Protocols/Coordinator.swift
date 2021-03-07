@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Coordinator Protocol each protocol should confirm to this
 protocol Coordinator {
     var chileCoordinators: [Coordinator] { get set }
     var navigationController: UINavigationController { get set }

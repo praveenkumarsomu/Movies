@@ -6,11 +6,11 @@
 //
 
 import Foundation
-
+/// Movie details use case
 class MovieDetailsUseCase: UseCaseWithParameter {
     typealias Input = String
     typealias Output = (Result<MovieDetailsModel, Error>) -> Void
-
+    /// Movies repository
     var searchRepository: MoviesRepository!
     init(searchRepo: MoviesRepository) {
         self.searchRepository = searchRepo
@@ -26,6 +26,7 @@ class MovieDetailsUseCase: UseCaseWithParameter {
             }
         }
     }
+    /// Converts `MovieDetails` into `MovieDetailsModel`
     func convertMovieDetailsModel(_ movieDetails: MovieDetails) -> MovieDetailsModel {
         movieDetails.convertToMovieDetailsModel()
     }

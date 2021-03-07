@@ -7,16 +7,23 @@
 
 import UIKit
 
+/// Search view controller is Initial view controller for application
 class SearchViewController: UIViewController, Storyboarded {
+    /// Collection view data source
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Movie>
+    /// Collection view snap shot
     typealias SnapShot = NSDiffableDataSourceSnapshot<Section, Movie>
+    /// Collection view section types
     enum Section {
       case main
     }
+    /// Coordinator instance for navigation
     weak var coordinator: MainCoordinator?
+    /// View model of type `SearchViewModel`
     var viewModel: SearchViewModel!
     // MARK:- Outlets
     @IBOutlet weak var collectionView: UICollectionView!
+    // MARK:- Private variables
     private var searchController = UISearchController(searchResultsController: nil)
     private lazy var dataSource = makeDataSource()
     private(set) var showPaginationLoader = false
@@ -33,6 +40,7 @@ class SearchViewController: UIViewController, Storyboarded {
         configireCollectionViewLayout()
         bindViewModel()
     }
+    // MARK:- Collection view data source
     func makeDataSource() -> DataSource {
       let dataSource = DataSource(
         collectionView: collectionView,
@@ -49,7 +57,7 @@ class SearchViewController: UIViewController, Storyboarded {
           guard kind == UICollectionView.elementKindSectionFooter else {
             return nil
           }
-          let section = self.dataSource.snapshot()
+          let _ = self.dataSource.snapshot()
             .sectionIdentifiers[indexPath.section]
           let view = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
@@ -67,6 +75,8 @@ class SearchViewController: UIViewController, Storyboarded {
         dataSource.apply(snapshot, animatingDifferences: animation)
         collectionView.backgroundView = getEmptyPlaceholderView()
     }
+    // MARK:- Private functions
+    /// Bind view model output to update search status
     private func bindViewModel() {
         viewModel.receiveErrorFromSearchMovies = { [weak self] error in
             guard let self = self else { return }
@@ -83,14 +93,26 @@ class SearchViewController: UIViewController, Storyboarded {
             self.applySnapshot(with: false)
         }
     }
+    /// Creates empty place holder for empty search result
+    /// - Returns: returns optional Image view
+    func getEmptyPlaceholderView() -> UIImageView? {
+        if viewModel.movies.count > 0 {
+            return nil
+        }
+        let imageView = UIImageView(image: UIImage(named: "emptyPlaceholder"))
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }
 }
 // MARK:- Search controller
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard (searchController.searchBar.text ?? "").count > 2 else { return }
+        /// If search word is same no need to call service again
         guard searchController.searchBar.text != viewModel.searchKeyword else { return }
         viewModel.searchMovies(searchKeyWord)
     }
+    /// Creates search view controller and adds it to navigation controller
     func configureSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -131,15 +153,8 @@ extension SearchViewController {
           return section
         })
     }
-    func getEmptyPlaceholderView() -> UIImageView? {
-        if viewModel.movies.count > 0 {
-            return nil
-        }
-        let imageView = UIImageView(image: UIImage(named: "emptyPlaceholder"))
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }
 }
+// MARK:- Search view controller delegate methods
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let movie = dataSource.itemIdentifier(for: indexPath), let imdbID = movie.imdbID else { return }
@@ -147,7 +162,7 @@ extension SearchViewController: UICollectionViewDelegate {
         coordinator?.showMovieDetailsScreen(with: imdbID)
     }
 }
-
+// MARK:- Pagination logic
 extension SearchViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         searchController.searchBar.endEditing(true)
@@ -158,7 +173,7 @@ extension SearchViewController: UIScrollViewDelegate {
         }
     }
     /// Check whether collection view is scrooled to bottom or not
-    /// - Returns:
+    /// - Returns: Returns bool value
     func checkIsCollectionScrolledToTheEnd() -> Bool {
         (collectionView.contentSize.height - (collectionView.frame.height + collectionView.contentOffset.y)) < 50
     }

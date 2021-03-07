@@ -7,19 +7,26 @@
 
 import UIKit
 
+/// Displays the movie details As of  now it has only one entry point from `SearchViewController`
 class MovieDetailViewController: UIViewController, Storyboarded {
+    /// Collection view data source
     typealias DataSource = UICollectionViewDiffableDataSource<Section, MovieDetailsModel>
+    /// Collection view snapshot
     typealias SnapShot = NSDiffableDataSourceSnapshot<Section, MovieDetailsModel>
+    /// Collection view Sections
     enum Section {
       case main
     }
+    // MARK:- Outlets
     @IBOutlet weak var collectionView: UICollectionView!
+    // MARK:- Internal variables
     weak var coordinator: MainCoordinator?
     var viewModel: MovieDetailsViewModel!
     var movieID: String!
-    private(set) var movieDetails: MovieDetailsModel!
     lazy var dataSource: DataSource = makeDataSource()
-    // MARK:- View controller life cycles
+    // MARK:- Private variables
+    private(set) var movieDetails: MovieDetailsModel!
+    // MARK:- View controller life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         if let viewModel = movieDetailsContainer.resolve(MovieDetailsViewModel?.self) {
@@ -29,6 +36,7 @@ class MovieDetailViewController: UIViewController, Storyboarded {
         configireCollectionViewLayout()
         viewModel.getMovieDetails(for: movieID)
     }
+    /// Bind view model outputs
     private func bindViewModel() {
         viewModel.updateMovieDetails = { [weak self] movieDetails in
             self?.movieDetails = movieDetails
@@ -39,7 +47,7 @@ class MovieDetailViewController: UIViewController, Storyboarded {
             self.showErrorMessage(with: "Error", description: error, actions: self.defaultAlertButton())
         }
     }
-
+    // MARK:- Collection view data source
     func makeDataSource() -> DataSource {
         let dataSource = DataSource(
             collectionView: collectionView,
@@ -54,6 +62,7 @@ class MovieDetailViewController: UIViewController, Storyboarded {
             })
         return dataSource
     }
+    /// Display udated data in collection  view
     func applySnapshot(with animation: Bool = true) {
         var snapshot = SnapShot()
         snapshot.appendSections([.main])
@@ -67,7 +76,6 @@ extension MovieDetailViewController {
     func configireCollectionViewLayout() {
         collectionView.register(MovieDetailsCollectionViewCell.nib(), forCellWithReuseIdentifier: MovieDetailsCollectionViewCell.reuseIdentifier())
         collectionView.collectionViewLayout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            let isPhone = layoutEnvironment.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiom.phone
             let size = NSCollectionLayoutSize(
                 widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
                 heightDimension: NSCollectionLayoutDimension.estimated(300)

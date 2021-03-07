@@ -8,6 +8,7 @@
 import UIKit
 import Kingfisher
 
+/// Collection view cell to display movie details in `MovieDetailViewController`
 class MovieDetailsCollectionViewCell: UICollectionViewCell, Registrable {
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!

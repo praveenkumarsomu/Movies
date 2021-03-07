@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/// Movie details service response model
 struct MovieDetails : Codable {
     let actors : String?
     let awards : String?

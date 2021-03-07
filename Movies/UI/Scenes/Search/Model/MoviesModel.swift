@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/// Movie model to display search result in SearchViewControler
 struct Movie: Hashable {
     var id: Double?
     var imdbID: String?

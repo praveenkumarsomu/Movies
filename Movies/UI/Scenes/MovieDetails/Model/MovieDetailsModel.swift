@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Model for displaying movie details in `MovieDetailViewController`
 struct MovieDetailsModel: Hashable, Equatable {
     let actors : String?
     let language : String?

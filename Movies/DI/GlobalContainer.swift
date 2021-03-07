@@ -7,7 +7,7 @@
 
 import UIKit
 import Swinject
-
+/// Global container for the application. All global objects are register here
 let globalContainer: Container = {
     let container = Container()
     /// Register Service Class

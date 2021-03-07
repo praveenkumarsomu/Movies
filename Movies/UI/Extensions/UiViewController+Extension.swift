@@ -20,7 +20,7 @@ extension UIViewController {
         }
         present(alertController, animated: true, completion: nil)
     }
-    /// Create default `OK`
+    /// Create default `OK` button
     func defaultAlertButton() -> [UIAlertAction] {
         [UIAlertAction(title: "Ok", style: .default, handler: nil)]
     }

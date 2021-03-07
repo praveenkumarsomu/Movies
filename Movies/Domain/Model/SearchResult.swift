@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Search movies service response model
 struct SearchResult : Codable {
     
     let response : String?

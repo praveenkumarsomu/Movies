@@ -9,26 +9,28 @@ import Foundation
 import Alamofire
 
 typealias Movies = [Movie]
+/// Search movies use case
 class SearchMoviesUseCase: UseCaseWithParameter {
     typealias Input = SearchRequestModel
-    typealias Output = (Result<[Movie], Error>) -> Void
-
+    typealias Output = (Result<Movies, Error>) -> Void
+    /// Movies repository
     var searchRepository: MoviesRepository!
     init(searchRepo: MoviesRepository) {
         self.searchRepository = searchRepo
     }
-    func execute(input: SearchRequestModel, completion: @escaping (Result<[Movie], Error>) -> Void) {
+    func execute(input: SearchRequestModel, completion: @escaping (Result<Movies, Error>) -> Void) {
         searchRepository.searchMovies(model: input) { result in
             switch result {
             case .success(let result):
                 let movies = self.convertSearchResultIntoMovie(result)
-                completion(Result<[Movie], Error>.success(movies))
+                completion(Result<Movies, Error>.success(movies))
             case .failure(let error):
-                completion(Result<[Movie], Error>.failure(error))
+                completion(Result<Movies, Error>.failure(error))
             }
         }
     }
-    func convertSearchResultIntoMovie(_ searchResult: SearchResult) -> [Movie] {
+    /// Converts `[Search]` into `[Movie]`
+    func convertSearchResultIntoMovie(_ searchResult: SearchResult) -> Movies {
         let movies = searchResult.search?.compactMap({ search in
             search.getMovieModel()
         })

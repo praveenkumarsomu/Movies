@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Protocol to the Register `UICollectionView` and `UITableView` cells
 protocol Registrable: class {
     static func reuseIdentifier() -> String
     static func nib() -> UINib

@@ -8,6 +8,7 @@
 import Foundation
 import Swinject
 
+/// Search scene container, all necessary classes, value types for this scene will be registered here
 let searchContainer: Container = {
     let container = Container()
     if let moviesRepo = globalContainer.resolve(MoviesRepository?.self), let unwrappedRepo = moviesRepo {

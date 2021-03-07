@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Search Movies Request model
 struct SearchRequestModel: Codable {
     var s: String
     var page: Int

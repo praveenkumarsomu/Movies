@@ -34,6 +34,7 @@ struct Search : Codable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(imdbID)
     }
+    /// Convert Poster url string to `URL`
     func getPosterUrl() -> URL? {
         guard let poster = poster else { return nil }
         return URL(string: poster)
