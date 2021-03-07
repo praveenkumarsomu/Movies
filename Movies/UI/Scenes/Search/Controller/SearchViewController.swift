@@ -20,7 +20,6 @@ class SearchViewController: UIViewController, Storyboarded {
     private var searchController = UISearchController(searchResultsController: nil)
     private lazy var dataSource = makeDataSource()
     private(set) var showPaginationLoader = false
-//    private(set) var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
     private var searchKeyWord: String {
         return searchController.searchBar.text ?? ""
     }
@@ -68,14 +67,6 @@ class SearchViewController: UIViewController, Storyboarded {
         snapshot.appendItems(viewModel.movies)
         dataSource.apply(snapshot, animatingDifferences: animation)
     }
-//    func showLoader() {
-//        navigationItem.titleView = activityIndicator
-//        activityIndicator.startAnimating()
-//    }
-//    func hideLoader() {
-//        navigationItem.titleView = nil
-//        activityIndicator.stopAnimating()
-//    }
     private func bindViewModel() {
         viewModel.receiveErrorFromSearchMovies = { [weak self] error in
             guard let self = self else { return }
@@ -142,8 +133,9 @@ extension SearchViewController {
 }
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let movie = dataSource.itemIdentifier(for: indexPath) else { return }
-        coordinator.showm
+        guard let movie = dataSource.itemIdentifier(for: indexPath), let imdbID = movie.imdbID else { return }
+        self.view.endEditing(true)
+        coordinator?.showMovieDetailsScreen(with: imdbID)
     }
 }
 
