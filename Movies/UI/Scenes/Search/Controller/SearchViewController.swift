@@ -24,7 +24,7 @@ class SearchViewController: UIViewController, Storyboarded {
     // MARK:- Outlets
     @IBOutlet weak var collectionView: UICollectionView!
     // MARK:- Private variables
-    private var searchController = UISearchController(searchResultsController: nil)
+    private(set) var searchController = UISearchController(searchResultsController: nil)
     private lazy var dataSource = makeDataSource()
     private(set) var showPaginationLoader = false
     private var searchKeyWord: String {
