@@ -26,7 +26,7 @@ struct MovieDetails : Codable {
     let rated : String?
     let ratings : [Rating]?
     let released : String?
-    let response : Bool?
+    let response : String?
     let runtime : String?
     let title : String?
     let type : String?
@@ -80,7 +80,7 @@ struct MovieDetails : Codable {
         rated = try values.decodeIfPresent(String.self, forKey: .rated)
         ratings = try values.decodeIfPresent([Rating].self, forKey: .ratings)
         released = try values.decodeIfPresent(String.self, forKey: .released)
-        response = try values.decodeIfPresent(Bool.self, forKey: .response)
+        response = try values.decodeIfPresent(String.self, forKey: .response)
         runtime = try values.decodeIfPresent(String.self, forKey: .runtime)
         title = try values.decodeIfPresent(String.self, forKey: .title)
         type = try values.decodeIfPresent(String.self, forKey: .type)
@@ -89,6 +89,10 @@ struct MovieDetails : Codable {
         year = try values.decodeIfPresent(String.self, forKey: .year)
     }
     func convertToMovieDetailsModel() -> MovieDetailsModel {
-        MovieDetailsModel(actors: actors, language: language, poster: poster, ratings: ratings, plot: plot, writer: writer, year: year)
+        MovieDetailsModel(actors: actors, language: language, posterURL: getPosterUrl(), ratings: ratings, plot: plot, writer: writer, year: year, title: title, imdbRating: imdbRating)
+    }
+    func getPosterUrl() -> URL? {
+        guard let poster = poster else { return nil }
+        return URL(string: poster)
     }
 }

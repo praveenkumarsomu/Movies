@@ -7,12 +7,20 @@
 
 import Foundation
 
-struct MovieDetailsModel {
+struct MovieDetailsModel: Hashable, Equatable {
     let actors : String?
     let language : String?
-    let poster : String?
+    let posterURL : URL?
     let ratings : [Rating]?
     let plot : String?
     let writer : String?
     let year : String?
+    let title: String?
+    let imdbRating : String?
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(Date().timeIntervalSince1970)
+    }
+    static func == (lhs: MovieDetailsModel, rhs: MovieDetailsModel) -> Bool {
+        lhs.title == rhs.title
+    }
 }

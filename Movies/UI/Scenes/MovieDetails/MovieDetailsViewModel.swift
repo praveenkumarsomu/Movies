@@ -21,7 +21,6 @@ class MovieDetailsViewModel: MovieDetailsViewModelProtocol {
     // MARK:- Outputs
     var updateMovieDetails: ((MovieDetailsModel) -> Void) = { _ in }
     var updateMovieDetailsError: ((String) -> Void) = { _ in }
-
     init(useCase: MovieDetailsUseCase) {
         self.movieDetailsUseCase = useCase
     }

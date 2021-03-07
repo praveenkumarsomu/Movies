@@ -22,6 +22,8 @@
 		AC3CE1E825EE7A130022E819 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CE1E725EE7A130022E819 /* Search.swift */; };
 		AC3CE1F525EE7A9C0022E819 /* SearchMoviesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CE1F425EE7A9C0022E819 /* SearchMoviesUseCase.swift */; };
 		AC3CE1FE25EE7B9C0022E819 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CE1FD25EE7B9C0022E819 /* SearchViewModel.swift */; };
+		AC65F88325F48255003978BE /* MovieDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC65F88125F48255003978BE /* MovieDetailsCollectionViewCell.swift */; };
+		AC65F88425F48255003978BE /* MovieDetailsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC65F88225F48255003978BE /* MovieDetailsCollectionViewCell.xib */; };
 		AC8126D125EE8E7700C909D0 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = AC8126D025EE8E7700C909D0 /* Swinject */; };
 		AC8126E825EFDF2B00C909D0 /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8126E725EFDF2B00C909D0 /* UseCase.swift */; };
 		AC8126ED25EFDF7800C909D0 /* MoviesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8126EC25EFDF7800C909D0 /* MoviesRepository.swift */; };
@@ -90,6 +92,8 @@
 		AC3CE1E725EE7A130022E819 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		AC3CE1F425EE7A9C0022E819 /* SearchMoviesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMoviesUseCase.swift; sourceTree = "<group>"; };
 		AC3CE1FD25EE7B9C0022E819 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		AC65F88125F48255003978BE /* MovieDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
+		AC65F88225F48255003978BE /* MovieDetailsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieDetailsCollectionViewCell.xib; sourceTree = "<group>"; };
 		AC8126E725EFDF2B00C909D0 /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
 		AC8126EC25EFDF7800C909D0 /* MoviesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRepository.swift; sourceTree = "<group>"; };
 		AC8126F525EFDFDE00C909D0 /* ServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceImpl.swift; sourceTree = "<group>"; };
@@ -232,6 +236,15 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		AC65F88825F4825B003978BE /* CollectionCells */ = {
+			isa = PBXGroup;
+			children = (
+				AC65F88125F48255003978BE /* MovieDetailsCollectionViewCell.swift */,
+				AC65F88225F48255003978BE /* MovieDetailsCollectionViewCell.xib */,
+			);
+			path = CollectionCells;
+			sourceTree = "<group>";
+		};
 		AC8126D525EE8E9A00C909D0 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +364,7 @@
 				ACEB372425F3C6F600CF5EE8 /* Controller */,
 				ACEB372825F3C70B00CF5EE8 /* MovieDetailsViewModel.swift */,
 				ACEB373D25F3CC6400CF5EE8 /* Model */,
+				AC65F88825F4825B003978BE /* CollectionCells */,
 			);
 			path = MovieDetails;
 			sourceTree = "<group>";
@@ -523,6 +537,7 @@
 				AC3CE1A925EE735B0022E819 /* Assets.xcassets in Resources */,
 				ACEB36DD25F34B8B00CF5EE8 /* FooterLoaderCollectionReusableView.xib in Resources */,
 				AC3CE1A725EE735A0022E819 /* Main.storyboard in Resources */,
+				AC65F88425F48255003978BE /* MovieDetailsCollectionViewCell.xib in Resources */,
 				AC81273725F31B0000C909D0 /* MovieCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -552,6 +567,7 @@
 				AC3CE1A425EE735A0022E819 /* SearchViewController.swift in Sources */,
 				AC81270425EFE3AC00C909D0 /* Service.swift in Sources */,
 				ACEB373625F3CAF300CF5EE8 /* MovieDetailsUseCase.swift in Sources */,
+				AC65F88325F48255003978BE /* MovieDetailsCollectionViewCell.swift in Sources */,
 				AC81271725EFE90000C909D0 /* GlobalContainer.swift in Sources */,
 				AC3CE1DE25EE764F0022E819 /* SearchModel.swift in Sources */,
 				AC3CE1F525EE7A9C0022E819 /* SearchMoviesUseCase.swift in Sources */,
