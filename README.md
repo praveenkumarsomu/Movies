@@ -17,4 +17,4 @@ Written unit tests for Search and Details modules, because of the time constrain
 
 ## Notes:
 
-Focused more on functional stuff there is possibility to improve UI alot due to time constraint stick with basic UI.
+Focused more on functional stuff, there is the possibility to improve UI a lot due to time constraints stick with basic UI.
