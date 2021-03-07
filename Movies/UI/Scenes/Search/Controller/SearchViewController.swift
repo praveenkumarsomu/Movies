@@ -32,7 +32,6 @@ class SearchViewController: UIViewController, Storyboarded {
         configureSearchController()
         configireCollectionViewLayout()
         bindViewModel()
-        applySnapshot()
     }
     func makeDataSource() -> DataSource {
       let dataSource = DataSource(
@@ -66,6 +65,7 @@ class SearchViewController: UIViewController, Storyboarded {
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.movies)
         dataSource.apply(snapshot, animatingDifferences: animation)
+        collectionView.backgroundView = getEmptyPlaceholderView()
     }
     private func bindViewModel() {
         viewModel.receiveErrorFromSearchMovies = { [weak self] error in
@@ -88,6 +88,7 @@ class SearchViewController: UIViewController, Storyboarded {
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard (searchController.searchBar.text ?? "").count > 2 else { return }
+        guard searchController.searchBar.text != viewModel.searchKeyword else { return }
         viewModel.searchMovies(searchKeyWord)
     }
     func configureSearchController() {
@@ -130,6 +131,14 @@ extension SearchViewController {
           return section
         })
     }
+    func getEmptyPlaceholderView() -> UIImageView? {
+        if viewModel.movies.count > 0 {
+            return nil
+        }
+        let imageView = UIImageView(image: UIImage(named: "emptyPlaceholder"))
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }
 }
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -141,6 +150,7 @@ extension SearchViewController: UICollectionViewDelegate {
 
 extension SearchViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchController.searchBar.endEditing(true)
         if checkIsCollectionScrolledToTheEnd(), !showPaginationLoader, (searchController.searchBar.text ?? "").count > 2 {
             showPaginationLoader = true
             collectionView.collectionViewLayout.invalidateLayout()

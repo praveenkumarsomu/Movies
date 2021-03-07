@@ -38,6 +38,7 @@ class SearchViewModel: SearchViewModelProtocol {
     let searchUseCase: SearchMoviesUseCase
     private(set) var currentPage = 1
     private(set) var movies: [Movie] = []
+    var searchKeyword: String?
     init(usecase: SearchMoviesUseCase) {
         self.searchUseCase = usecase
     }
@@ -45,6 +46,7 @@ class SearchViewModel: SearchViewModelProtocol {
     func searchMovies(_ searchKey: String) {
         currentPage = 1
         let searchViewModel = SearchRequestModel(s: searchKey, page: currentPage)
+        self.searchKeyword = searchKey
         searchUseCase.execute(input: searchViewModel) { [self] response in
             switch response {
             case .success(let result):

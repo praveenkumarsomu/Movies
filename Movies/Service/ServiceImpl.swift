@@ -11,7 +11,8 @@ import Alamofire
 class ServiceImpl: Service {
     var baseURL: String = "http://www.omdbapi.com/?apikey=b9bd48a6"
     func getMovies(model: SearchRequestModel, completion: @escaping ((Result<SearchResult, Error>) -> Void)) {
-        let url = "\(baseURL)&s=\(model.s)"
+        let url = "\(baseURL)&s=\(model.s.stringByAddingPercentEncodingForRFC3986() ?? "")&page=\(model.page)"
+        print("Search URL \(url)")
         AF.request(url, method: .get).responseDecodable(of: SearchResult.self) { (response) in
             guard let searchResult = response.value else {
                 return completion(.failure(response.error!))
